@@ -1,0 +1,275 @@
+ALGORITHM ExtendedNumberAnalysis
+
+// Declaration
+DECLARE start : INTEGER
+DECLARE end : INTEGER
+DECLARE oddNumbers[] : ARRAY OF INTEGER
+DECLARE evenNumbers[] : ARRAY OF INTEGER
+DECLARE oddAverage, evenAverage : REAL
+DECLARE oddStdDev, evenStdDev : REAL
+DECLARE oddPrimes[], evenPrimes[] : ARRAY OF INTEGER
+
+BEGIN
+    /*==================================================
+       STEP 1: INPUT RANGE
+    ==================================================*/
+    OUTPUT "Enter start of range: "
+    INPUT start
+    
+    OUTPUT "Enter end of range: "
+    INPUT end
+    
+    
+    /*==================================================
+       SECTION A: ODD NUMBERS PROCESSING
+    ==================================================*/
+    
+    /*--------------------------------------------------
+       STEP 2: COUNT ODD NUMBERS
+    --------------------------------------------------*/
+    DECLARE oddCount : INTEGER ← 0
+    
+    FOR i FROM start TO end DO
+        IF i MOD 2 ≠ 0 THEN
+            oddCount ← oddCount + 1
+        END IF
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 3: STORE ODD NUMBERS IN ARRAY
+    --------------------------------------------------*/
+    DECLARE oddNumbers[oddCount] : ARRAY OF INTEGER
+    DECLARE index : INTEGER ← 0
+    
+    FOR i FROM start TO end DO
+        IF i MOD 2 ≠ 0 THEN
+            oddNumbers[index] ← i
+            index ← index + 1
+        END IF
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 4: CALCULATE ODD AVERAGE
+    --------------------------------------------------*/
+    DECLARE oddSum : REAL ← 0.0
+    
+    FOR i FROM 0 TO length(oddNumbers) - 1 DO
+        oddSum ← oddSum + oddNumbers[i]
+    END FOR
+    
+    oddAverage ← oddSum / length(oddNumbers)
+    
+    /*--------------------------------------------------
+       STEP 5: CALCULATE ODD FACTORIALS
+    --------------------------------------------------*/
+    OUTPUT ""
+    OUTPUT "Factorials of Odd Numbers:"
+    
+    FOR i FROM 0 TO length(oddNumbers) - 1 DO
+        DECLARE factorial : LONG INTEGER ← 1
+        
+        FOR j FROM 1 TO oddNumbers[i] DO
+            factorial ← factorial × j
+        END FOR
+        
+        OUTPUT oddNumbers[i], "! = ", factorial
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 6: CALCULATE ODD STANDARD DEVIATION
+    --------------------------------------------------*/
+    DECLARE oddVarianceSum : REAL ← 0.0
+    
+    FOR i FROM 0 TO length(oddNumbers) - 1 DO
+        oddVarianceSum ← oddVarianceSum + (oddNumbers[i] - oddAverage)²
+    END FOR
+    
+    DECLARE oddVariance : REAL ← oddVarianceSum / length(oddNumbers)
+    oddStdDev ← √oddVariance
+    
+    /*--------------------------------------------------
+       STEP 7: FACTORIAL OF ODD STANDARD DEVIATION
+    --------------------------------------------------*/
+    DECLARE oddStdDevInt : INTEGER ← CONVERT_TO_INTEGER(oddStdDev)
+    DECLARE oddStdDevFact : LONG INTEGER ← 1
+    
+    FOR i FROM 1 TO oddStdDevInt DO
+        oddStdDevFact ← oddStdDevFact × i
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 8: FIND ODD PRIME NUMBERS
+    --------------------------------------------------*/
+    // Count odd primes
+    DECLARE oddPrimeCount : INTEGER ← 0
+    
+    FOR i FROM 0 TO length(oddNumbers) - 1 DO
+        IF isPrime(oddNumbers[i]) THEN
+            oddPrimeCount ← oddPrimeCount + 1
+        END IF
+    END FOR
+    
+    // Store odd primes
+    DECLARE oddPrimeArray[oddPrimeCount] : ARRAY OF INTEGER
+    DECLARE pIndex : INTEGER ← 0
+    
+    FOR i FROM 0 TO length(oddNumbers) - 1 DO
+        IF isPrime(oddNumbers[i]) THEN
+            oddPrimeArray[pIndex] ← oddNumbers[i]
+            pIndex ← pIndex + 1
+        END IF
+    END FOR
+    
+    
+    /*==================================================
+       SECTION B: EVEN NUMBERS PROCESSING
+    ==================================================*/
+    
+    /*--------------------------------------------------
+       STEP 9: COUNT EVEN NUMBERS
+    --------------------------------------------------*/
+    DECLARE evenCount : INTEGER ← 0
+    
+    FOR i FROM start TO end DO
+        IF i MOD 2 = 0 THEN
+            evenCount ← evenCount + 1
+        END IF
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 10: STORE EVEN NUMBERS IN ARRAY
+    --------------------------------------------------*/
+    DECLARE evenNumbers[evenCount] : ARRAY OF INTEGER
+    DECLARE evenIndex : INTEGER ← 0
+    
+    FOR i FROM start TO end DO
+        IF i MOD 2 = 0 THEN
+            evenNumbers[evenIndex] ← i
+            evenIndex ← evenIndex + 1
+        END IF
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 11: CALCULATE EVEN AVERAGE
+    --------------------------------------------------*/
+    DECLARE evenSum : REAL ← 0.0
+    
+    FOR i FROM 0 TO length(evenNumbers) - 1 DO
+        evenSum ← evenSum + evenNumbers[i]
+    END FOR
+    
+    evenAverage ← evenSum / length(evenNumbers)
+    
+    /*--------------------------------------------------
+       STEP 12: CALCULATE EVEN FACTORIALS
+    --------------------------------------------------*/
+    OUTPUT ""
+    OUTPUT "Factorials of Even Numbers:"
+    
+    FOR i FROM 0 TO length(evenNumbers) - 1 DO
+        DECLARE evenFactorial : LONG INTEGER ← 1
+        
+        FOR j FROM 1 TO evenNumbers[i] DO
+            evenFactorial ← evenFactorial × j
+        END FOR
+        
+        OUTPUT evenNumbers[i], "! = ", evenFactorial
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 13: CALCULATE EVEN STANDARD DEVIATION
+    --------------------------------------------------*/
+    DECLARE evenVarianceSum : REAL ← 0.0
+    
+    FOR i FROM 0 TO length(evenNumbers) - 1 DO
+        evenVarianceSum ← evenVarianceSum + (evenNumbers[i] - evenAverage)²
+    END FOR
+    
+    DECLARE evenVariance : REAL ← evenVarianceSum / length(evenNumbers)
+    evenStdDev ← √evenVariance
+    
+    /*--------------------------------------------------
+       STEP 14: FACTORIAL OF EVEN STANDARD DEVIATION
+    --------------------------------------------------*/
+    DECLARE evenStdDevInt : INTEGER ← CONVERT_TO_INTEGER(evenStdDev)
+    DECLARE evenStdDevFact : LONG INTEGER ← 1
+    
+    FOR i FROM 1 TO evenStdDevInt DO
+        evenStdDevFact ← evenStdDevFact × i
+    END FOR
+    
+    /*--------------------------------------------------
+       STEP 15: FIND EVEN PRIME NUMBERS
+    --------------------------------------------------*/
+    // Count even primes
+    DECLARE evenPrimeCount : INTEGER ← 0
+    
+    FOR i FROM 0 TO length(evenNumbers) - 1 DO
+        IF isPrime(evenNumbers[i]) THEN
+            evenPrimeCount ← evenPrimeCount + 1
+        END IF
+    END FOR
+    
+    // Store even primes
+    DECLARE evenPrimeArray[evenPrimeCount] : ARRAY OF INTEGER
+    DECLARE evenPIndex : INTEGER ← 0
+    
+    FOR i FROM 0 TO length(evenNumbers) - 1 DO
+        IF isPrime(evenNumbers[i]) THEN
+            evenPrimeArray[evenPIndex] ← evenNumbers[i]
+            evenPIndex ← evenPIndex + 1
+        END IF
+    END FOR
+    
+    
+    /*==================================================
+       STEP 16: DISPLAY FINAL OUTPUT
+    ==================================================*/
+    
+    // ODD Results
+    OUTPUT ""
+    OUTPUT "Odd Average: ", oddAverage
+    OUTPUT "Odd Standard Deviation: ", oddStdDev
+    OUTPUT "Factorial of Odd Standard Deviation (integer part): ", oddStdDevFact
+    
+    // EVEN Results
+    OUTPUT ""
+    OUTPUT "Even Average: ", evenAverage
+    OUTPUT "Even Standard Deviation: ", evenStdDev
+    OUTPUT "Factorial of Even Standard Deviation (integer part): ", evenStdDevFact
+    
+    // ODD Primes
+    OUTPUT ""
+    OUTPUT "Odd Prime Numbers:"
+    FOR i FROM 0 TO length(oddPrimeArray) - 1 DO
+        OUTPUT oddPrimeArray[i]
+    END FOR
+    
+    // EVEN Primes
+    OUTPUT ""
+    OUTPUT "Even Prime Numbers:"
+    FOR i FROM 0 TO length(evenPrimeArray) - 1 DO
+        OUTPUT evenPrimeArray[i]
+    END FOR
+    
+END
+
+/*==================================================
+   HELPER FUNCTION: PRIME CHECKER
+==================================================*/
+FUNCTION isPrime(num : INTEGER) : BOOLEAN
+BEGIN
+    IF num ≤ 1 THEN
+        RETURN FALSE
+    END IF
+    
+    FOR i FROM 2 TO √num DO
+        IF num MOD i = 0 THEN
+            RETURN FALSE
+        END IF
+    END FOR
+    
+    RETURN TRUE
+END FUNCTION
+
+END ALGORITHM
