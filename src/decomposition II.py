@@ -21,12 +21,13 @@ c = np.array([1,  2,  0],  dtype=float)       # RHS for Bx = c
 def cholesky(A):
     n = A.shape[0]
     R = np.zeros_like(A)
-    for i in range(n):                          # row index
+    for i in range(n):  # row index
         # Diagonal entry
         s = A[i, i] - np.sum(R[:i, i]**2)
         if s <= 0:
             raise ValueError('Matrix is not SPD!')
         R[i, i] = np.sqrt(s)
+        
         # Off-diagonal entries (to the right)
         for j in range(i+1, n):
             R[i,j] = (A[i,j] - np.dot(R[:i,i], R[:i,j])) / R[i,i]
