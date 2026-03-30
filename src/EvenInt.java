@@ -10,7 +10,7 @@ public class EvenInt{
         }
     } 
 
-    public static double standardDeviation(double a, double b) { // Function to compute standard deviation of two values
+    public static double standardDeviation(double a, double b) {   // Function to compute standard deviation of two values
         double mean = (a + b) / 2.0;
         double variance = ((a - mean) * (a - mean) + (b - mean) * (b - mean)) / 2.0;
         return Math.sqrt(variance);
@@ -55,7 +55,7 @@ public class EvenInt{
 
         System.out.println("The average is " + even_avg);
         System.out.println("The factorial of the average is " + even_fact); 
-        System.out.printf("The square root of the factorial is %.4f%n", sqrt_even_fact);  // The %.4f is used to format the output to 4 decimal places.
+        System.out.printf("The square root of the factorial is %.4f%n", sqrt_even_fact);  // The %.4f is used to format the output to 4 decimal places and the %n is used for a new line.
         System.out.printf("The standard deviation of the square root and the factorial is %.4f%n", even_sd);
     }
-}
+} 
