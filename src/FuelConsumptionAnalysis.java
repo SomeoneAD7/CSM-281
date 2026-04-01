@@ -14,24 +14,25 @@ public class FuelConsumptionAnalysis {
 
         int peakFuelDay = 1; 
 
-        int i = 0; 
+        int i = 0;  // manually managed index pointer (while loop requirement) 
 
         while (i < fuelConsumption.length) {
-            if (fuelConsumption[i] > 20) {
-                highFuel[highCount] = fuelConsumption[i]; 
+            double fuel = fuelConsumption[i]; 
+            if (fuel > 20) {
+                highFuel[highCount] = fuel; 
                 highCount++; 
             } 
-            else if (fuelConsumption[i] >= 10 && fuelConsumption[i] <= 20) {
-                normalFuel[normalCount] = fuelConsumption[i]; 
+            else if (fuel >= 10 && fuel <= 20) {
+                normalFuel[normalCount] = fuel; 
                 normalCount++; 
             } 
             else {
-                lowFuel[lowCount] = fuelConsumption[i]; 
+                lowFuel[lowCount] = fuel; 
                 lowCount++; 
             } 
 
-           double currentFuel = fuelConsumption[i];
-           totalFuelConsumption += fuelConsumption[i]; 
+           double currentFuel = fuel;
+           totalFuelConsumption += fuel; 
 
             if (currentFuel > max) {
                 max = currentFuel; 
@@ -40,7 +41,7 @@ public class FuelConsumptionAnalysis {
 
             System.out.printf("Day %d: Fuel Consumption = %.2f liters %n" , i + 1 , currentFuel);
 
-            i++; 
+            i++; // manual index increment
         }  
 
         double avgFuelConsumption = totalFuelConsumption / fuelConsumption.length; 
