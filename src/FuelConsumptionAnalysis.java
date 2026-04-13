@@ -2,13 +2,11 @@ public class FuelConsumptionAnalysis {
     public static void main(String[] args) {
         double[] fuelConsumption = {12.5, 22.0, 8.4, 18.6, 25.3, 9.8, 15.0}; 
         double totalFuelConsumption = 0.0; 
-        double[] highFuel = new double[fuelConsumption.length]; 
-        double[] normalFuel = new double[fuelConsumption.length]; 
-        double[] lowFuel = new double[fuelConsumption.length]; 
+        //double[] highFuel = new double[fuelConsumption.length]; 
+        //double[] normalFuel = new double[fuelConsumption.length]; 
+        //double[] lowFuel = new double[fuelConsumption.length]; 
 
-        int highCount = 0;
-        int normalCount = 0;  
-        int lowCount = 0; 
+        int highCount = 0, normalCount = 0, lowCount = 0; 
 
         double max = fuelConsumption[0]; 
 
@@ -18,18 +16,9 @@ public class FuelConsumptionAnalysis {
 
         while (i < fuelConsumption.length) {
             double fuel = fuelConsumption[i]; 
-            if (fuel > 20) {
-                highFuel[highCount] = fuel; 
-                highCount++; 
-            } 
-            else if (fuel >= 10 && fuel <= 20) {
-                normalFuel[normalCount] = fuel; 
-                normalCount++; 
-            } 
-            else {
-                lowFuel[lowCount] = fuel; 
-                lowCount++; 
-            } 
+            if (fuel > 20) /*highFuel[highCount] = fuel;*/ highCount++;
+            else if (fuel >= 10 && fuel <= 20) /*normalFuel[normalCount] = fuel; */ normalCount++;
+            else /*lowFuel[lowCount] = fuel; */ lowCount++;
 
            double currentFuel = fuel;
            totalFuelConsumption += fuel; 

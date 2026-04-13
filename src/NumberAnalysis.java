@@ -1,7 +1,15 @@
 import java.util.Scanner;
 
 public class NumberAnalysis {
-    @SuppressWarnings("ConvertToTryWithResources")
+    // ---- PRIME CHECKER METHOD ----
+    public static boolean isPrime(int num) {
+        if (num <= 1) return false;
+
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
     public static void main(String[] args) {
         Scanner myInput1 = new Scanner(System.in);
 
@@ -66,9 +74,7 @@ public class NumberAnalysis {
         // ---- ODD PRIMES ----
         int oddPrimeCount = 0;
         for (int i = 0; i < k.length; i++) {
-            if (isPrime(k[i])) {
-                oddPrimeCount++;
-            }
+            if (isPrime(k[i])) oddPrimeCount++;
         }
 
         // Store odd primes 
@@ -88,9 +94,7 @@ public class NumberAnalysis {
         // ---- COUNT EVEN NUMBERS ----
         int evenCount = 0;
         for (int i = start; i <= end; i++) {
-            if (i % 2 == 0) {
-                evenCount++;
-            }
+            if (i % 2 == 0) evenCount++;
         }
 
         // ---- STORE EVEN NUMBERS ----
@@ -174,14 +178,4 @@ public class NumberAnalysis {
             System.out.println(evenPrimeArray[i]);
         }
     } 
-
-    // ---- PRIME CHECKER METHOD ----
-    public static boolean isPrime(int num) {
-        if (num <= 1) return false;
-
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) return false;
-        }
-        return true;
-    }
 }
